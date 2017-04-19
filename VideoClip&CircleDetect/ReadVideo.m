@@ -2,9 +2,7 @@
 %space: frame space per video-clip
 %frameCount: total number of clip we want
 %beginIdx: cut first number of clip(ball with hand)
-function [imL, imR] = ReadVideo(space, frameCount, beginIdx, isDispImg)
-    videoL = VideoReader('E:\curriculum\ComputerVision\FinalProject\left_shot3.mp4');
-    videoR = VideoReader('E:\curriculum\ComputerVision\FinalProject\right_shot3.mp4');
+function [imL, imR] = ReadVideo(videoL, videoR, space, frameCount, beginIdx, isDispImg)
     
     %frame
     imL = cell(frameCount, 1);

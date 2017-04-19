@@ -1,5 +1,6 @@
 % display image with ball
-function result = CircleDetect(imL, imR)
+% isCircleOnly == true: return image only contain ball.
+function [LCenDisp, RCenDisp, LradiDisp, RradiDisp, LImgCircle, RImgCircle] = CircleDetect(imL, imR, isCircleOnly)
     [framenumL, cellnum] = size(imL);
     [framenumR, cellnum] = size(imR);
     if(framenumL ~= framenumR)
@@ -7,6 +8,16 @@ function result = CircleDetect(imL, imR)
     end
     frameCount = framenumL;
     avgSize = 7; %ball radi
+    
+    LradiDisp=zeros(frameCount, 1);
+    RradiDisp=zeros(frameCount, 1);
+    LCenDisp = cell(frameCount, 1);
+    RCenDisp = cell(frameCount, 1);
+    LImgCircle = cell(frameCount, 1);
+    RImgCircle = cell(frameCount, 1);
+    yellow = uint8([255 255 0]); % [R G B]; class of yellow must match class of I
+    shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
+                    'CustomFillColor',yellow, 'Opacity', 1.0);
     
     for idx = 1:frameCount
     %for idx = frameCount-1:frameCount   
@@ -30,7 +41,16 @@ function result = CircleDetect(imL, imR)
             if(cenR/cenG>1.5)
                 Lradi = Lradii(i);
                 viscircles(Lcenter,Lradi);
-                %break;
+                LradiDisp(idx, 1) = Lradi;
+                LCenDisp{idx} = Lcenter;
+                %draw circles
+                circles = int32([Lcenter(1) Lcenter(2) Lradi]);
+                LImgCircle{idx} = step(shapeInserter, imL{idx}, circles);
+                if isCircleOnly == true
+                    LImgCircle{idx} = LImgCircle{idx}-imL{idx};      
+                end
+                %imshow( LImgCircle{idx});
+                break;%only feature work perfect
             end
         end
         %R
@@ -52,7 +72,16 @@ function result = CircleDetect(imL, imR)
             if(cenR/cenG>1.2)
                 Rradi = Rradii(i);
                 viscircles(Rcenter,Rradi);
-                %break; %only feature work perfect
+                RradiDisp(idx, 1) = Rradi;
+                RCenDisp{idx} = Rcenter;
+                %draw circles
+                circles = int32([Rcenter(1) Rcenter(2) Rradi]);
+                RImgCircle{idx} = step(shapeInserter, imR{idx}, circles);
+                if isCircleOnly == true
+                    RImgCircle{idx} = RImgCircle{idx}-imR{idx};      
+                end
+                %imshow( RImgCircle{idx});
+                break; %only feature work perfect
             end
         end
         %viscircles(Rcenters,Rradii);
