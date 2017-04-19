@@ -6,5 +6,7 @@ BegIndxFrame = 4;
 
 [Lc, Rc, Lr, Rr, Li_orig, Ri_orig, Li_edited, Ri_edited , ROFVx, ROFVy , LOFVx, LOFVy] = GetOpticalFlowFromVideo(LeftVideo, RightVideo,SpaceBetweenFrames, NumOfFrames, BegIndxFrame);
 
+image = cell2mat(Ri_edited(1));
+imshow(image);
 TestVelx = cell2mat(ROFVx(1));
-center1 = cell2
+center = cell2mat(Lc(1));
