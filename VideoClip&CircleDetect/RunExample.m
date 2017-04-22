@@ -1,8 +1,7 @@
-function result = RunExample()
     result = true;
     
-    videoL = VideoReader('E:\curriculum\ComputerVision\FinalProject\left_shot3.mp4');
-    videoR = VideoReader('E:\curriculum\ComputerVision\FinalProject\right_shot3.mp4');
+    videoL = VideoReader('left_shot3.mp4');
+    videoR = VideoReader('right_shot3.mp4');
     %params illustrate in function
     [imL, imR] = ReadVideo(videoL, videoR, 2,3,4, false);
 %    [framenumL, cellnum] = size(imL);
@@ -15,6 +14,5 @@ function result = RunExample()
 %     end
 	%
     [Lc, Rc, Lr, Rr, Li, Ri] = CircleDetect(imL, imR, true);
-    
-    result = 1;
-end
+    figure(7);
+    imshow(cell2mat(Ri(1)));
