@@ -1,6 +1,6 @@
 function [flow, VelX, VelY] = getVelocityMatrixOpticalFlow( I1,I2 )
 
-opticFlow = opticalFlowLK('NoiseThreshold',0.055);
+opticFlow = opticalFlowLK('NoiseThreshold',0.048);
 im1 = im2double(rgb2gray(I1));
 im2 = im2double(rgb2gray(I2));
 flow = estimateFlow(opticFlow, im1);

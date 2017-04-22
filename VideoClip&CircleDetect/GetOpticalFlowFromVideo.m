@@ -1,9 +1,9 @@
-function [Lc, Rc, Lr, Rr, Li_orig, Ri_orig, Li_edited, Ri_edited , ROFVx, ROFVy , LOFVx, LOFVy] = GetOpticalFlowFromVideo(LeftVid, RightVid, SpaceBetweenFrames, NumOfFrames, BegIndxFrame)
+function [Lc, Rc, Lr, Rr, Li_orig, Ri_orig, Li_edited, Ri_edited , ROFVx, ROFVy , LOFVx, LOFVy , flowL , flowR] = GetOpticalFlowFromVideo(LeftVid, RightVid, SpaceBetweenFrames, NumOfFrames, BegIndxFrame)
 
 videoL = VideoReader( LeftVid );
 videoR = VideoReader( RightVid );
 [imL, imR] = ReadVideo(videoL, videoR, SpaceBetweenFrames ,NumOfFrames ,BegIndxFrame, false);
-[Lc, Rc, Lr, Rr, Li_edited, Ri_edited] = CircleDetect(imL, imR, true);
+[Lc, Rc, Lr, Rr, Li_edited, Ri_edited] = CircleDetect(imL, imR, false);
 
 Li_orig = imL;
 Ri_orig = imR;
@@ -17,10 +17,10 @@ i = 1;
 j = 2;
 
 while j <= NumOfFrames
-    [flowR , VelRx , VelRy] = GetVelocityMatrixOpticalFlow( cell2mat(Li_edited(j)) , cell2mat(Li_edited(i)));
+    [flowR , VelRx , VelRy] = GetVelocityMatrixOpticalFlow( cell2mat(Li_orig(j)) , cell2mat(Li_orig(i)));
     ROFVx{i} = VelRx;
     ROFVy{i} = VelRy;
-    [flowL , VelLx , VelLy] = GetVelocityMatrixOpticalFlow( cell2mat(Ri_edited(j)) , cell2mat(Ri_edited(i)));
+    [flowL , VelLx , VelLy] = GetVelocityMatrixOpticalFlow( cell2mat(Ri_orig(j)) , cell2mat(Ri_orig(i)));
     LOFVx{i} = VelLx;
     LOFVy{i} = VelLy;
     i = i + 1;
