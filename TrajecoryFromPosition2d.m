@@ -1,6 +1,7 @@
-function res = TrajecoryFromPosition2d(p, width, height)%p:n*2 matrix
-n=size(p);
+function res = TrajecoryFromPosition2d(pcell, width, height)%p:n*2 matrix
+n=size(pcell);
 n=n(1);
+p=cell2mat(pcell);
 %t=(1:1:n-1)';
 du=p(2:n,1)-p(1:n-1,1);
 dv=p(2:n,2)-p(1:n-1,2);
