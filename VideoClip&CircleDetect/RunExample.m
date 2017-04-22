@@ -1,9 +1,11 @@
+function result = RunExample()
     result = true;
     
-    videoL = VideoReader('left_shot3.mp4');
-    videoR = VideoReader('right_shot3.mp4');
+    videoL = VideoReader('E:\curriculum\ComputerVision\FinalProject\left_shot3.mp4');
+    videoR = VideoReader('E:\curriculum\ComputerVision\FinalProject\right_shot3.mp4');
     %params illustrate in function
-    [imL, imR] = ReadVideo(videoL, videoR, 2,3,4, false);
+    %manual cut from frame 8
+    [imL, imR] = ReadVideo(videoL, videoR, 1,15,8, false);
 %    [framenumL, cellnum] = size(imL);
 %     for i = 1:framenumL
 %         figure()
@@ -13,6 +15,11 @@
 %         imshow(imR{i});
 %     end
 	%
-    [Lc, Rc, Lr, Rr, Li, Ri] = CircleDetect(imL, imR, true);
-    figure(7);
-    imshow(cell2mat(Ri(1)));
+    [Lc, Rc, Lr, Rr, Li, Ri] = CircleDetect(imL, imR, false, true);
+    
+    res = TrajecoryFromPosition2d(Lc,1280,720);
+    
+    DrawPredict(imL{9}, res, 12, 1);
+    
+    result = 1;
+end
