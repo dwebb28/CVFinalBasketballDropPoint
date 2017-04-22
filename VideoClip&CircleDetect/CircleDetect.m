@@ -53,11 +53,11 @@ function [LCenDisp, RCenDisp, LradiDisp, RradiDisp, LImgCircle, RImgCircle] = Ci
                 shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
                     'CustomFillColor',red, 'Opacity', 1.0);
                 circles = int32([Lcenter(1) Lcenter(2) Lradi/3*2]);
-                LImgCircle{idx} = step(shapeInserter, imL{idx}, circles);
+                LImgCircle{idx} = step(shapeInserter, LImgCircle{idx}, circles);
                 shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
                     'CustomFillColor',blue, 'Opacity', 1.0);
                 circles = int32([Lcenter(1) Lcenter(2) Lradi/3]);
-                LImgCircle{idx} = step(shapeInserter, imL{idx}, circles);                
+                LImgCircle{idx} = step(shapeInserter, LImgCircle{idx}, circles);                
                 if isCircleOnly == true
                     LImgCircle{idx} = LImgCircle{idx}-imL{idx};      
                 end
@@ -93,16 +93,16 @@ function [LCenDisp, RCenDisp, LradiDisp, RradiDisp, LImgCircle, RImgCircle] = Ci
                 RImgCircle{idx} = step(shapeInserter, imR{idx}, circles);
                 shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
                     'CustomFillColor',red, 'Opacity', 1.0);
-                circles = int32([Rcenter(1) Rcenter(2) Rradi]/3*2);
-                RImgCircle{idx} = step(shapeInserter, imR{idx}, circles);
+                circles = int32([Rcenter(1) Rcenter(2) Rradi/3*2]);
+                RImgCircle{idx} = step(shapeInserter, RImgCircle{idx}, circles);
                 shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
                     'CustomFillColor',blue, 'Opacity', 1.0);
-                circles = int32([Rcenter(1) Rcenter(2) Rradi]/3);
-                RImgCircle{idx} = step(shapeInserter, imR{idx}, circles);                
+                circles = int32([Rcenter(1) Rcenter(2) Rradi/3]);
+                RImgCircle{idx} = step(shapeInserter,  RImgCircle{idx}, circles);                
                 if isCircleOnly == true
                     RImgCircle{idx} = RImgCircle{idx}-imR{idx};      
                 end
-                %imshow( RImgCircle{idx});
+                imshow( RImgCircle{idx});
                 break; %only feature work perfect
             end
         end
