@@ -15,9 +15,9 @@ function [LCenDisp, RCenDisp, LradiDisp, RradiDisp, LImgCircle, RImgCircle] = Ci
     RCenDisp = cell(frameCount, 1);
     LImgCircle = cell(frameCount, 1);
     RImgCircle = cell(frameCount, 1);
-    yellow = uint8([255 255 0]); % [R G B]; class of yellow must match class of I
-    red = uint8([255 0 0]);
-    blue = uint8([0 0 255]);
+%     yellow = uint8([255 255 0]); % [R G B]; class of yellow must match class of I
+%     red = uint8([255 0 0]);
+%     blue = uint8([0 0 255]);
 %     shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
 %                     'CustomFillColor',yellow, 'Opacity', 1.0);
     
@@ -45,11 +45,13 @@ function [LCenDisp, RCenDisp, LradiDisp, RradiDisp, LImgCircle, RImgCircle] = Ci
                 viscircles(Lcenter,Lradi);
                 LradiDisp(idx, 1) = Lradi;
                 LCenDisp{idx} = Lcenter;
+                
+                LImgCircle{idx}=imL{idx};
                 %draw circles
-                shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
-                    'CustomFillColor',yellow, 'Opacity', 1.0);
-                circles = int32([Lcenter(1) Lcenter(2) Lradi/10]);
-                LImgCircle{idx} = step(shapeInserter, imL{idx}, circles);
+%                 shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
+%                     'CustomFillColor',yellow, 'Opacity', 1.0);
+%                 circles = int32([Lcenter(1) Lcenter(2) Lradi/10]);
+%                 LImgCircle{idx} = step(shapeInserter, imL{idx}, circles);
 %                 shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
 %                     'CustomFillColor',red, 'Opacity', 1.0);
 %                 circles = int32([Lcenter(1) Lcenter(2) Lradi/3*2]);
@@ -57,11 +59,13 @@ function [LCenDisp, RCenDisp, LradiDisp, RradiDisp, LImgCircle, RImgCircle] = Ci
 %                 shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
 %                     'CustomFillColor',blue, 'Opacity', 1.0);
 %                 circles = int32([Lcenter(1) Lcenter(2) Lradi/3]);
-%                LImgCircle{idx} = step(shapeInserter, LImgCircle{idx}, circles);                
+%                LImgCircle{idx} = step(shapeInserter, LImgCircle{idx}, circles);  
+                % color feature
+                LImgCircle{idx} = AddColorFearure(imL{idx}, int16(Lcenter(2)),int16(Lcenter(1)));
                 if isCircleOnly == true
-                    LImgCircle{idx} = LImgCircle{idx}-imL{idx};      
+                    LImgCircle{idx} = LImgCircle{idx}-imL{idx};
                 end
-                %imshow( LImgCircle{idx});
+                imshow( LImgCircle{idx});
                 break;%only feature work perfect
             end
         end
@@ -87,10 +91,10 @@ function [LCenDisp, RCenDisp, LradiDisp, RradiDisp, LImgCircle, RImgCircle] = Ci
                 RradiDisp(idx, 1) = Rradi;
                 RCenDisp{idx} = Rcenter;
                 %draw circles
-                shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
-                    'CustomFillColor',yellow, 'Opacity', 1.0);
-                circles = int32([Rcenter(1) Rcenter(2) Rradi/10]);
-                RImgCircle{idx} = step(shapeInserter, imR{idx}, circles);
+%                 shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
+%                     'CustomFillColor',yellow, 'Opacity', 1.0);
+%                 circles = int32([Rcenter(1) Rcenter(2) Rradi/10]);
+%                 RImgCircle{idx} = step(shapeInserter, imR{idx}, circles);
 %                 shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
 %                     'CustomFillColor',red, 'Opacity', 1.0);
 %                 circles = int32([Rcenter(1) Rcenter(2) Rradi/3*2]);
@@ -98,7 +102,9 @@ function [LCenDisp, RCenDisp, LradiDisp, RradiDisp, LImgCircle, RImgCircle] = Ci
 %                 shapeInserter = vision.ShapeInserter('Shape','Circles','Fill', true, 'FillColor','Custom',...
 %                     'CustomFillColor',blue, 'Opacity', 1.0);
 %                 circles = int32([Rcenter(1) Rcenter(2) Rradi/3]);
-%                 RImgCircle{idx} = step(shapeInserter,  RImgCircle{idx}, circles);                
+%                 RImgCircle{idx} = step(shapeInserter,  RImgCircle{idx}, circles);    
+                 % color feature
+                RImgCircle{idx} = AddColorFearure(imR{idx}, int16(Rcenter(2)),int16(Rcenter(1)));
                 if isCircleOnly == true
                     RImgCircle{idx} = RImgCircle{idx}-imR{idx};      
                 end
