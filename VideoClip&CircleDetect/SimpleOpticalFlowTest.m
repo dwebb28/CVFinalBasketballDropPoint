@@ -1,5 +1,5 @@
-numFrames = 20;
-startFrame = 1;
+numFrames = 8;
+startFrame = 8;
 video = VideoReader('right_shot3.mp4');
 frames = cell(numFrames, 1);
 lastFrame = startFrame + numFrames -1;
