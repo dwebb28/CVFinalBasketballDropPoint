@@ -5,7 +5,7 @@ function result = RunExample()
     videoR = VideoReader('right_shot3.mp4');
     %params illustrate in function
     %manual cut from frame 8
-    [imL, imR] = ReadVideo(videoL, videoR, 1,15,8, false);
+    [imL, imR] = ReadVideo(videoL, videoR, 1,15,8, true);
 %    [framenumL, cellnum] = size(imL);
 %     for i = 1:framenumL
 %         figure()
@@ -16,8 +16,10 @@ function result = RunExample()
 %     end
 	%
     [Lc, Rc, Lr, Rr, Li, Ri] = CircleDetect(imL, imR, false, true);
+    %disp = Disparity(cell2mat(Lc), cell2mat(Rc));
     
-    res = TrajecoryFromPosition2d(Lc,1280,720);
+    %res = TrajecoryFromPosition2d(Lc,1280,720);
+    res = TrajecoryFromPosition3d(Lc, Lr);
     
     videoL = VideoReader('left_shot3.mp4');
     videoR = VideoReader('right_shot3.mp4');
