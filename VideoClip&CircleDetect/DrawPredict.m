@@ -2,7 +2,7 @@
 %radi in this project should be around 12
 function result = DrawPredict(video, cen, radi, beginIdx, space)
     [cen_num, coordNum] = size(cen);
-    counter = 2;
+    counter = 1;
     %circleList = zeros(cen_num, 1);
     center = zeros(1,2);
     figure();
@@ -20,7 +20,7 @@ function result = DrawPredict(video, cen, radi, beginIdx, space)
                 for i=counter:cen_num
                     center(1) = cen(i, 1);
                     center(2) = cen(i, 2);
-                    viscircles(center,radi);
+                    viscircles(center,abs(radi(i)));
                 end
                 %writeVideo(outputVideo,frame);
                 counter = counter+1;

@@ -14,7 +14,7 @@ pnew=p(n,:);
 res=pnew;
 newdu=du(n-1);
 newdv=dv(n-1);
-while pnew(1)>0 && pnew(1)<width && pnew(2)>0 && pnew(2)<height %temporary, need consider hoop
+while pnew(1)>480 && pnew(1)<width && pnew(2)>0 && pnew(2)<height %temporary, need consider hoop
     newdu=newdu*(1-k);
     newdv=newdv*(1-k)-a;
     pnew=[pnew(1)+newdu,pnew(2)+newdv];

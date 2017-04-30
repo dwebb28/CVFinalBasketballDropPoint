@@ -20,16 +20,24 @@ function [LCenDisp, RCenDisp, LradiDisp, RradiDisp, LImgCircle, RImgCircle] = Ci
     %for idx = frameCount-1:frameCount   
         %circle detect
         %L
-        %figure();
-        %imshow(imL{idx});
+%         figure();
+%         imshow(imL{idx});
         [Lcenters, Lradii] = imfindcircles(imL{idx},[10 20],'ObjectPolarity', 'dark', 'Sensitivity',0.95);
         [num, coordnum] = size(Lcenters);
         Lcenter = zeros(1,2);
         for i = 1:num
             Lcenter(1) = Lcenters(i,1);
             Lcenter(2) = Lcenters(i,2);
-            imClip = imL{idx}(Lcenter(2)-avgSize:Lcenter(2)+avgSize,...
-                              Lcenter(1)-avgSize:Lcenter(1)+avgSize, :);
+            clipMinX = Lcenter(2)-avgSize;
+            if clipMinX<0 
+                clipMinX=0;
+            end
+            clipMinY = Lcenter(1)-avgSize;
+            if clipMinY<0 
+                clipMinY=0;
+            end
+            imClip = imL{idx}(clipMinX:Lcenter(2)+avgSize,...
+                              clipMinY:Lcenter(1)+avgSize, :);
             cenR = mean2(imClip(:,:,1));
             cenG = mean2(imClip(:,:,2));
 %             cenR = imL{idx}(int16(Lcenter(2)),int16(Lcenter(1)),1);
