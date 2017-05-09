@@ -20,8 +20,8 @@ function [LCenDisp, RCenDisp, LradiDisp, RradiDisp, LImgCircle, RImgCircle] = Ci
     %for idx = frameCount-1:frameCount   
         %circle detect
         %L
-%         figure();
-%         imshow(imL{idx});
+        figure();
+        imshow(imL{idx});%-imL{idx+1});
         [Lcenters, Lradii] = imfindcircles(imL{idx},[10 20],'ObjectPolarity', 'dark', 'Sensitivity',0.95);
         [num, coordnum] = size(Lcenters);
         Lcenter = zeros(1,2);
