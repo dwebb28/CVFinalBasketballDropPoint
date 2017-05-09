@@ -1,3 +1,6 @@
+%%Borrowed from Matlab website. This is not my own. Borrowed for
+%%experimental purposes%
+
 videoReader = vision.VideoFileReader('camera_left.mov');
 videoPlayer = vision.VideoPlayer('Position',[100,100,500,400]);
 foregroundDetector = vision.ForegroundDetector('NumTrainingFrames',10,...
